@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Chatroom</title>
+    <link rel="stylesheet" href="styles.css">
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="description" content="" />
+    <link rel="icon" href="favicon.png">
+</head>
+<body>
+    <form id="api-key-form">
+        <label for="api-key" style="padding-right: 10px;">Enter ChatGPT Api Key to start: </label><br>
+        <input type="text" name="api-key" id="api-key" />
+        <button id="enter-api-key">Go</button>
+    </form>
+    <div id="messages"></div>
+    <form id="form" action="">
+        <input id="input" autocomplete="off" /><button id="submit-button">Send</button>
+    </form>
+    <script defer="defer" src="chat.js"></script>
+</body>
+
+</html>
