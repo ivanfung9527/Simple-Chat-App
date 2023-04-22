@@ -3,10 +3,12 @@ const inputBox = document.getElementById("input");
 const container = document.getElementById("messages");
 const submitButton = document.getElementById("submit-button");
 const endpoint = 'https://api.openai.com/v1/chat/completions';
-
+const buffer = {
+    apiKey: null
+};
 
 async function sendMessage(msg) {
-    let key = sessionStorage.getItem('apiKey');
+    let key = buffer['apiKey'];
     let data = {
         messages: [{ role: "user", "content": msg }],
         model: "gpt-3.5-turbo",
@@ -59,7 +61,7 @@ function apiKeyError(errCode) {
 // Event Listeners
 submitButton.addEventListener('click', function (event) {
     event.preventDefault();
-    if (sessionStorage.getItem('apiKey') === null) {
+    if (buffer['apiKey'] === null) {
         return;
     }
     createMessage(inputBox.value, "user");
@@ -77,14 +79,15 @@ goButton.addEventListener('click', function (event) {
         let alert = document.querySelector(".alert-msg");
         alert.remove();
     } catch (error) { }
-    console.log(apiKey);
-    sessionStorage.setItem('apiKey', apiKey.value);
+    // console.log(apiKey);
+    buffer['apiKey'] = apiKey.value;
+    // sessionStorage.setItem('apiKey', apiKey.value);
     sendMessage("Hello.")
         .then(resp => createMessage(resp, "bot"))
         .then(dummy => apiForm.remove())
         .catch(error => {
             console.log(error)
             apiKeyError()
-            sessionStorage.removeItem('apiKey');
+            buffer['apiKey'] = null;
         });
 });
